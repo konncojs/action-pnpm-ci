@@ -1,6 +1,6 @@
 {
   "name": "@konncojs/action-pnpm-ci",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Setup CI with PNPM for GitHub Actions 🗞️",
   "scripts": {
     "plan": "nx release plan"
