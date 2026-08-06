@@ -1,0 +1,4 @@
+allowBuilds:
+  nx: false
+
+enableGlobalVirtualStore: true

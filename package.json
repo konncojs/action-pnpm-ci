@@ -1,0 +1,21 @@
+{
+  "name": "@konncojs/action-pnpm-ci",
+  "version": "0.0.0",
+  "description": "Setup CI with PNPM for GitHub Actions 🗞️",
+  "scripts": {
+    "plan": "nx release plan"
+  },
+  "keywords": [
+    "github",
+    "actions",
+    "pnpm",
+    "ci"
+  ],
+  "author": "Konnco Studio <support@konnco.com>",
+  "license": "ISC",
+  "packageManager": "pnpm@11.20.0",
+  "devDependencies": {
+    "@nx/js": "^23.1.1",
+    "nx": "^23.1.1"
+  }
+}

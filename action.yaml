@@ -1,0 +1,78 @@
+name: Setup and Build
+description: Checkout, install deps, lint, typecheck, test, build
+author: Konnco Studio
+
+branding:
+  color: orange
+  icon: box
+
+inputs:
+  node-version-file:
+    description: "Path to the file containing the Node.js version to use"
+    required: false
+    default: ".node-version"
+  configure-npmrc:
+    description: "Whether to configure .npmrc for GitHub Packages"
+    required: false
+    default: "true"
+  run-build:
+    description: "Whether to run the build step"
+    required: false
+    default: "true"
+  GITHUB_TOKEN:
+    description: "GitHub token for authentication"
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v7
+      with:
+        fetch-depth: 0
+
+    - name: 🧑‍💻 Set Git user
+      shell: bash
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+
+    - name: ⚙️ Setup Node.js
+      uses: actions/setup-node@v7
+      with:
+        node-version-file: ${{ inputs.node-version-file }}
+
+    - name: ⚙️ Install PNPM
+      uses: pnpm/action-setup@v6
+      with:
+        cache: true
+
+    - name: 🔑 Configure .npmrc for GitHub Packages
+      if: ${{ inputs.configure-npmrc == 'true' }}
+      shell: bash
+      run: |
+        pnpm config set "//npm.pkg.github.com/:_authToken" "${GITHUB_TOKEN}" --location project
+        pnpm config set "@${GITHUB_REPOSITORY_OWNER}:registry" "https://npm.pkg.github.com" --location project
+      env:
+        GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
+
+    - name: 📦 Install dependencies
+      shell: bash
+      run: pnpm install --frozen-lockfile
+
+    - name: 🛡️ Run linter
+      shell: bash
+      run: pnpm lint
+
+    - name: 🔍 Typecheck
+      shell: bash
+      run: pnpm typecheck
+
+    - name: 🧪 Testing
+      shell: bash
+      run: pnpm test
+
+    - name: 🏗️ Building library
+      if: ${{ inputs.run-build == 'true' }}
+      shell: bash
+      run: pnpm build

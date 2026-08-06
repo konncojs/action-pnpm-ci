@@ -1,0 +1,30 @@
+{
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "defaultBase": "main",
+  "release": {
+    "projects": ["*"],
+    "releaseTag": {
+      "pattern": "v{version}"
+    },
+    "version": {
+      "specifierSource": "version-plans",
+      "adjustSemverBumpsForZeroMajorVersion": false,
+      "versionActions": "node_modules/@nx/js/dist/src/release/version-actions.js"
+    },
+    "versionPlans": true,
+    "changelog": {
+      "projectChangelogs": true,
+      "workspaceChangelog": {
+        "createRelease": "github"
+      },
+      "automaticFromRef": true
+    },
+    "git": {
+      "commit": true,
+      "tag": true,
+      "push": true,
+      "commitMessage": "chore(release): publish {version}"
+    }
+  },
+  "analytics": false
+}

@@ -1,0 +1,7 @@
+{
+  "$schema": "./node_modules/nx/schemas/project-schema.json",
+  "name": "@konncojs/action-pnpm-ci",
+  "sourceRoot": "./src",
+  "projectType": "library",
+  "targets": {}
+}

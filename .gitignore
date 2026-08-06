@@ -1,0 +1,7 @@
+node_modules/
+
+.nx/*
+!.nx/version-plans
+!.nx/version-plans/*
+
+.npmrc
