@@ -51,8 +51,8 @@ runs:
       if: ${{ inputs.configure-npmrc == 'true' }}
       shell: bash
       run: |
-        pnpm config set "//npm.pkg.github.com/:_authToken" "${GITHUB_TOKEN}" --location project
-        pnpm config set "@${GITHUB_REPOSITORY_OWNER}:registry" "https://npm.pkg.github.com" --location project
+        printf '%s\n' "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}" > .npmrc
+        printf '%s\n' "@${GITHUB_REPOSITORY_OWNER}:registry=https://npm.pkg.github.com" >> .npmrc
       env:
         GITHUB_TOKEN: ${{ inputs.GITHUB_TOKEN }}
 
